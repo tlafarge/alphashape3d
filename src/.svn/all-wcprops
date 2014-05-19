@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/ashape/!svn/ver/60/package_alphashape3d_C/src
+END
+insideashape.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/ashape/!svn/ver/60/package_alphashape3d_C/src/insideashape.c
+END
+surfaceNormals.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/ashape/!svn/ver/60/package_alphashape3d_C/src/surfaceNormals.c
+END
+alphashape3d.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/ashape/!svn/ver/60/package_alphashape3d_C/src/alphashape3d.c
+END
