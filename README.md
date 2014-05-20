@@ -5,5 +5,13 @@ The package __alphashape3d__ presents the implementation in R of the __alpha-sha
 To install:
 
 * the latest released version: `install.packages("alphashape3d")`
-* the latest development version: `install_github("tlafarge/alphashape3d")`
+* the latest development version: `install_github("alphashape3d","tlafarge")` (require the package "devtools")
 
+Authors: 
+
+* Beatriz Pateiro-Lopez <beatriz.pateiro@usc.es>
+* Thomas Lafarge <tlafarge@gnist.gov>
+
+License:
+
+* GPL-2
