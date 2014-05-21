@@ -10,8 +10,8 @@ The package alphashape3d presents the implementation in R of the \eqn{\alpha}-sh
 \tabular{ll}{
 Package: \tab alphashape3d\cr
 Type: \tab Package\cr
-Version: \tab 1.0-3\cr
-Date: \tab 2013-06-05\cr
+Version: \tab 1.1\cr
+Date: \tab 2014-05-19\cr
 License: \tab GPL-2\cr
 LazyLoad: \tab yes\cr
 }
