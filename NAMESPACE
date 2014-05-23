@@ -1,6 +1,6 @@
 useDynLib(alphashape3d)
-
-
+import(geometry) 
+import(rgl) 
 export(ashape3d)
 export(components_ashape3d)
 export(inashape3d)
