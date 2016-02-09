@@ -63,9 +63,9 @@ void triangleNormals(int* triangles,int* nbTrin, int*tetra, int*nbTetrain, doubl
 		 v2[1]=points[tr[2] +nbP   -1]-points[tr[0]+nbP-1];
 		 v2[2]=points[tr[2]+2*nbP  -1]-points[tr[0]+2*nbP-1];
 
-		 normalMat[i]       = v1[1]*v2[2]-(v1[2]*v2[1]);
-	     normalMat[i+nbTr]  = v1[2]*v2[0]-(v1[0]*v2[2]);
-         normalMat[i+2*nbTr]= v1[0]*v2[1]-(v1[1]*v2[0]);
+		 normalMat[i]       = (v1[1]*v2[2]-(v1[2]*v2[1]))/2.0;
+	     normalMat[i+nbTr]  = (v1[2]*v2[0]-(v1[0]*v2[2]))/2.0;
+         normalMat[i+2*nbTr]= (v1[0]*v2[1]-(v1[1]*v2[0]))/2.0;
 
 		 v1[0]=(points[triangles[i]-1]       + points[triangles[i+nbTr]-1]       + points[triangles[i+2*nbTr]-1]       )/3;
 		 v1[1]=(points[triangles[i]+nbP-1]   + points[triangles[i+nbTr]+nbP-1]   + points[triangles[i+2*nbTr]+nbP-1]   )/3;

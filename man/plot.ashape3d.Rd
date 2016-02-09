@@ -9,7 +9,8 @@ This function plots the \eqn{\alpha}-shape in 3D using the package \code{\link{r
 }
 \usage{
 \method{plot}{ashape3d}(x, clear = TRUE, col = c(2, 2, 2), byComponents = FALSE,
- indexAlpha = 1, transparency = 1, walpha = FALSE, ...)
+ indexAlpha = 1, transparency = 1, walpha = FALSE, 
+ triangles = TRUE, edges = TRUE, vertices = TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,6 +34,15 @@ The coefficient of transparency, from 0 (transparent) to 1 (opaque), used to plo
 }
   \item{walpha}{
 Logical, if TRUE the value of \eqn{\alpha} is displayed in the rgl device.
+}
+ \item{triangles}{
+Logical, if TRUE triangles are plotted.
+}
+ \item{edges}{
+Logical, if TRUE edges are plotted.
+}
+ \item{vertices}{
+Logical, if TRUE vertices are plotted.
 }
   \item{\dots}{
 Material properties. See \code{\link{rgl.material}} for details.
