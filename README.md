@@ -11,7 +11,7 @@ To install:
 Authors: 
 
 * Beatriz Pateiro-Lopez <beatriz.pateiro@usc.es>
-* Thomas Lafarge <tlafarge@gnist.gov>
+* Thomas Lafarge <tlafarge@nist.gov>
 
 License:
 
