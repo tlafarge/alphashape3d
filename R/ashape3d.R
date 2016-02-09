@@ -31,7 +31,7 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
     }
     else {
         if (any(duplicated(x))) {
-            warning("Duplicate poits were removed", call. = FALSE, 
+            warning("Duplicate points were removed", call. = FALSE, 
                 immediate. = TRUE)
             x <- unique(x)
         }
