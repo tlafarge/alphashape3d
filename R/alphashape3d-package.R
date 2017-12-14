@@ -21,4 +21,6 @@
 #' Shapes. \emph{ACM Transactions on Graphics}, 13(1), pp.43-72.
 #' @keywords package
 #' @useDynLib alphashape3d
+#' @import rgl
+#' @import geometry
 NULL
