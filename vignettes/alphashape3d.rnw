@@ -945,7 +945,7 @@ file = offFilename, ncolumns = 4, append = TRUE, sep = " ")
 
 \textit{Software}
 
-The \pkg{alphashape3d} package is available from the Comprehensive \proglang{R} Archive Network at the url \url{http://CRAN.R-project.org/package=alphashape3d}. This document was generated with version 1.1 of the package.
+The \pkg{alphashape3d} package is available from the Comprehensive \proglang{R} Archive Network at the url \url{https://CRAN.R-project.org/package=alphashape3d}. This document was generated with version 1.1 of the package.
 
 
 
