@@ -10,8 +10,5 @@ Suggests: alphahull
 Description: Implementation in R of the alpha-shape of a finite set of points in the three-dimensional space. The alpha-shape generalizes the convex hull and allows to recover the shape of non-convex and even non-connected sets in 3D, given a random sample of points taken into it. Besides the computation of the alpha-shape, this package provides users with functions to compute the volume of the alpha-shape, identify the connected components and facilitate the three-dimensional graphical visualization of the estimated set. 
 License: GPL-2
 LazyLoad: yes
-Packaged: 2016-02-09 09:29:10 UTC; beatriz
 NeedsCompilation: yes
-Repository: CRAN
-Date/Publication: 2016-02-09 10:55:22
 RoxygenNote: 6.0.1
