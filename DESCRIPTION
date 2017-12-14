@@ -14,3 +14,4 @@ Packaged: 2016-02-09 09:29:10 UTC; beatriz
 NeedsCompilation: yes
 Repository: CRAN
 Date/Publication: 2016-02-09 10:55:22
+RoxygenNote: 6.0.1

@@ -1,17 +1,17 @@
 #' 3D \eqn{\alpha}-shape computation
-#' 
+#'
 #' This function calculates the 3D \eqn{\alpha}-shape of a given sample of
 #' points in the three-dimensional space for \eqn{\alpha>0}.
-#' 
+#'
 #' If \code{x} is an object of class \code{"ashape3d"}, then \code{ashape3d}
 #' does not recompute the 3D Delaunay triangulation (it reduces the
 #' computational cost).
-#' 
+#'
 #' If the input points \code{x} are not in general position and \code{pert} is
 #' set to TRUE, the function adds random noise to the data. The noise is
 #' generated from a normal distribution with mean zero and standard deviation
 #' \code{eps*sd(x)}.
-#' 
+#'
 #' @param x A 3-column matrix with the coordinates of the input points.
 #' Alternatively, an object of class \code{"ashape3d"} can be provided, see
 #' Details.
@@ -66,9 +66,9 @@
 #' \code{pert} is set to TRUE).}
 #' @references Edelsbrunner, H., Mucke, E. P. (1994). Three-Dimensional Alpha
 #' Shapes. \emph{ACM Transactions on Graphics}, 13(1), pp.43-72.
-#' @keywords package
+#' @importFrom stats rnorm runif sd
 #' @examples
-#' 
+#'
 #' T1 <- rtorus(1000, 0.5, 2)
 #' T2 <- rtorus(1000, 0.5, 2, ct = c(2, 0, 0), rotx = pi/2)
 #' x <- rbind(T1, T2)
@@ -77,21 +77,21 @@
 #' # 3D alpha-shape
 #' ashape3d.obj <- ashape3d(x, alpha = alpha)
 #' plot(ashape3d.obj)
-#' 
+#'
 #' # For new values of alpha, we can use ashape3d.obj as input (faster)
 #' alpha <- c(0.15, 1)
 #' ashape3d.obj <- ashape3d(ashape3d.obj, alpha = alpha)
 #' plot(ashape3d.obj, indexAlpha = 2:3)
-#' 
+#'
 #' @export ashape3d
 ashape3d <-
-function (x, alpha, pert = FALSE, eps = 1e-09) 
+function (x, alpha, pert = FALSE, eps = 1e-09)
 {
     flag <- 1
     flag2 <- 0
     alphaux <- alpha
     if (any(alphaux < 0)) {
-        stop("Parameter alpha must be greater or equal to zero", 
+        stop("Parameter alpha must be greater or equal to zero",
             call. = TRUE)
     }
     if (inherits(x, "ashape3d")) {
@@ -102,7 +102,7 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
         vt.def <- x$vertex
         alphaold <- x$alpha
         if (any(match(alphaux, alphaold, nomatch = 0))) {
-            warning("Some values of alpha have already been computed", 
+            warning("Some values of alpha have already been computed",
                 call. = FALSE)
             alphaux <- alphaux[is.na(match(alphaux, alphaold))]
         }
@@ -117,7 +117,7 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
     }
     else {
         if (any(duplicated(x))) {
-            warning("Duplicate points were removed", call. = FALSE, 
+            warning("Duplicate points were removed", call. = FALSE,
                 immediate. = TRUE)
             x <- unique(x)
         }
@@ -133,7 +133,7 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
             ORDM <- matrix(as.integer(0), ntc, 4)
             storage.mode(tc) <- "integer"
             storage.mode(ORDM) <- "integer"
-            tc <- .C("sortm", ORDM, as.integer(ntc), as.integer(4), 
+            tc <- .C("sortm", ORDM, as.integer(ntc), as.integer(4),
                 tc, PACKAGE = "alphashape3d")[[1]]
             tc.aux <- matrix(1:(4 * ntc), ncol = 4)
             tri <- rbind(tc[, -4], tc[, -3], tc[, -2], tc[, -1])
@@ -169,14 +169,14 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
             storage.mode(t3u) <- "integer"
             m123 <- numeric(ntri)
             storage.mode(m123) <- "double"
-            fm123 <- .C("fm123", x, as.integer(n), t1u, t2u, 
+            fm123 <- .C("fm123", x, as.integer(n), t1u, t2u,
                 t3u, as.integer(ntri), m123, PACKAGE = "alphashape3d")
             m123 <- fm123[[7]]
-            m1230 <- +m123[ind.tri[tc.aux[, 1]]] - m123[ind.tri[tc.aux[, 
-                2]]] + m123[ind.tri[tc.aux[, 3]]] - m123[ind.tri[tc.aux[, 
+            m1230 <- +m123[ind.tri[tc.aux[, 1]]] - m123[ind.tri[tc.aux[,
+                2]]] + m123[ind.tri[tc.aux[, 3]]] - m123[ind.tri[tc.aux[,
                 4]]]
             if (any(m1230 == 0) & !pert) {
-                stop("The general position assumption is not satisfied\nPlease enter data in general position or set pert=TRUE to allow perturbation", 
+                stop("The general position assumption is not satisfied\nPlease enter data in general position or set pert=TRUE to allow perturbation",
                   call. = FALSE)
             }
             if (any(m1230 == 0) & pert) {
@@ -215,7 +215,7 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
                 dup1 <- c(dup1[1], diff(dup1))
                 in.edo <- in.ed[ix1]
                 on.ch1 <- numeric(nvt)
-                on.ch1[c(t1u[as.logical(on.ch3)], t2u[as.logical(on.ch3)], 
+                on.ch1[c(t1u[as.logical(on.ch3)], t2u[as.logical(on.ch3)],
                   t3u[as.logical(on.ch3)])] <- 1
                 storage.mode(e1u) <- "integer"
                 storage.mode(e2u) <- "integer"
@@ -223,7 +223,7 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
                 storage.mode(mk0) <- "double"
                 num2 <- numeric(ned)
                 storage.mode(num2) <- "double"
-                fmk0 <- .C("fmk0", x, as.integer(n), e1u, e2u, 
+                fmk0 <- .C("fmk0", x, as.integer(n), e1u, e2u,
                   as.integer(ned), mk0, num2, PACKAGE = "alphashape3d")
                 mk0 <- fmk0[[6]]
                 num.rho2 <- fmk0[[7]]
@@ -240,8 +240,8 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
                 storage.mode(num2) <- "double"
                 num3 <- numeric(ntri)
                 storage.mode(num3) <- "double"
-                fmij0 <- .C("fmij0", x, as.integer(n), t1u, t2u, 
-                  t3u, as.integer(ntri), tri.aux, ind.ed, as.integer(ned), 
+                fmij0 <- .C("fmij0", x, as.integer(n), t1u, t2u,
+                  t3u, as.integer(ntri), tri.aux, ind.ed, as.integer(ned),
                   mk0, m23, m13, m12, num.rho2, num3, PACKAGE = "alphashape3d")
                 m230 <- fmij0[[11]]
                 m130 <- fmij0[[12]]
@@ -249,7 +249,7 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
                 num.rho3 <- fmij0[[15]]
                 den.rho3 <- m230^2 + m130^2 + m120^2
                 if (any(den.rho3 == 0) & !pert) {
-                  stop("The general position assumption is not satisfied\nPlease enter data in general position or set pert=TRUE to allow perturbation", 
+                  stop("The general position assumption is not satisfied\nPlease enter data in general position or set pert=TRUE to allow perturbation",
                     call. = FALSE)
                 }
                 if (any(den.rho3 == 0) & pert) {
@@ -257,7 +257,7 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
                 }
             }
             if (flag == 0) {
-                rho3 <- sqrt(0.25 * num.rho3/(m230^2 + m130^2 + 
+                rho3 <- sqrt(0.25 * num.rho3/(m230^2 + m130^2 +
                   m120^2))
                 storage.mode(x4) <- "double"
                 storage.mode(tc.aux) <- "integer"
@@ -271,18 +271,18 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
                 storage.mode(m2340) <- "double"
                 storage.mode(m1340) <- "double"
                 storage.mode(m1240) <- "double"
-                fmijk0 <- .C("fmijk0", x4, as.integer(n), tc, 
-                  as.integer(ntc), tc.aux, ind.tri, as.integer(ntri), 
+                fmijk0 <- .C("fmijk0", x4, as.integer(n), tc,
+                  as.integer(ntc), tc.aux, ind.tri, as.integer(ntri),
                   m230, m130, m120, m2340, m1340, m1240, PACKAGE = "alphashape3d")
                 m2340 <- fmijk0[[11]]
                 m1340 <- fmijk0[[12]]
                 m1240 <- fmijk0[[13]]
-                m1234 <- -(-x4[tc[, 4]] * m123[ind.tri[tc.aux[, 
-                  1]]] + x4[tc[, 3]] * m123[ind.tri[tc.aux[, 
-                  2]]] - x4[tc[, 2]] * m123[ind.tri[tc.aux[, 
-                  3]]] + x4[tc[, 1]] * m123[ind.tri[tc.aux[, 
+                m1234 <- -(-x4[tc[, 4]] * m123[ind.tri[tc.aux[,
+                  1]]] + x4[tc[, 3]] * m123[ind.tri[tc.aux[,
+                  2]]] - x4[tc[, 2]] * m123[ind.tri[tc.aux[,
+                  3]]] + x4[tc[, 1]] * m123[ind.tri[tc.aux[,
                   4]]])
-                rho.sq <- (0.25 * (m2340^2 + m1340^2 + m1240^2 + 
+                rho.sq <- (0.25 * (m2340^2 + m1340^2 + m1240^2 +
                   4 * m1230 * m1234)/m1230^2)
                 if (any(rho.sq < 0)) {
                   ind <- which(rho.sq < 0)
@@ -304,19 +304,19 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
                   ct <- numeric()
                   a <- numeric()
                   for (i in 1:length(ind)) {
-                    tetra <- rbind(v1[i, ], v2[i, ], v3[i, ], 
+                    tetra <- rbind(v1[i, ], v2[i, ], v3[i, ],
                       v4[i, ])
                     nor <- c(nv1[i], nv2[i], nv3[i], nv4[i])
-                    Dx[i] <- det(cbind(nor, tetra[, 2:3], rep(1, 
+                    Dx[i] <- det(cbind(nor, tetra[, 2:3], rep(1,
                       4)))
-                    Dy[i] <- -det(cbind(nor, tetra[, c(1, 3)], 
+                    Dy[i] <- -det(cbind(nor, tetra[, c(1, 3)],
                       rep(1, 4)))
-                    Dz[i] <- det(cbind(nor, tetra[, 1:2], rep(1, 
+                    Dz[i] <- det(cbind(nor, tetra[, 1:2], rep(1,
                       4)))
                     ct[i] <- det(cbind(nor, tetra[, 1:3]))
                     a[i] <- det(cbind(tetra[, 1:3], rep(1, 4)))
                   }
-                  rho.sq[ind] <- 0.25 * (Dx^2 + Dy^2 + Dz^2 - 
+                  rho.sq[ind] <- 0.25 * (Dx^2 + Dy^2 + Dz^2 -
                     4 * a * ct)/a^2
                 }
                 rho4 <- sqrt(rho.sq)
@@ -327,24 +327,24 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
                 storage.mode(mu3) <- "double"
                 mu3up <- numeric(ntri2)
                 storage.mode(mu3up) <- "double"
-                mus3 <- .C("int3", as.integer(ntri2), as.double(rf1), 
+                mus3 <- .C("int3", as.integer(ntri2), as.double(rf1),
                   as.double(rf2), mu3, mu3up, PACKAGE = "alphashape3d")
                 mu3 <- c(mus3[[4]], rho4[in.tc[ih]])
                 Mu3 <- c(mus3[[5]], rho4[in.tc[ih]])
                 sign <- rep(c(1, -1, 1, -1), each = ntc)
-                pu1 <- sign[i1] * m2340[in.tc[i1]] * m230[1:ntris] + 
-                  sign[i1] * m1340[in.tc[i1]] * m130[1:ntris] + 
-                  sign[i1] * m1240[in.tc[i1]] * m120[1:ntris] - 
+                pu1 <- sign[i1] * m2340[in.tc[i1]] * m230[1:ntris] +
+                  sign[i1] * m1340[in.tc[i1]] * m130[1:ntris] +
+                  sign[i1] * m1240[in.tc[i1]] * m120[1:ntris] -
                   2 * sign[i1] * m1230[in.tc[i1]] * m123[1:ntris]
-                pu2 <- sign[i2] * m2340[in.tc[i2]] * m230[1:ntris] + 
-                  sign[i2] * m1340[in.tc[i2]] * m130[1:ntris] + 
-                  sign[i2] * m1240[in.tc[i2]] * m120[1:ntris] - 
+                pu2 <- sign[i2] * m2340[in.tc[i2]] * m230[1:ntris] +
+                  sign[i2] * m1340[in.tc[i2]] * m130[1:ntris] +
+                  sign[i2] * m1240[in.tc[i2]] * m120[1:ntris] -
                   2 * sign[i2] * m1230[in.tc[i2]] * m123[1:ntris]
                 at3 <- (pu1 > 0 | pu2 > 0)
-                pu3 <- sign[ih] * m2340[in.tc[ih]] * m230[(ntris + 
-                  1):ntri] + sign[ih] * m1340[in.tc[ih]] * m130[(ntris + 
-                  1):ntri] + sign[ih] * m1240[in.tc[ih]] * m120[(ntris + 
-                  1):ntri] - 2 * sign[ih] * m1230[in.tc[ih]] * 
+                pu3 <- sign[ih] * m2340[in.tc[ih]] * m230[(ntris +
+                  1):ntri] + sign[ih] * m1340[in.tc[ih]] * m130[(ntris +
+                  1):ntri] + sign[ih] * m1240[in.tc[ih]] * m120[(ntris +
+                  1):ntri] - 2 * sign[ih] * m1230[in.tc[ih]] *
                   m123[(ntris + 1):ntri]
                 at3 <- c(at3, pu3 > 0)
                 auxmu3 <- (1 - at3) * rho3 + at3 * mu3
@@ -363,8 +363,8 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
                 storage.mode(mk0) <- "double"
                 at <- numeric(ned)
                 storage.mode(at) <- "integer"
-                mus2 <- .C("int2", dup, as.integer(ned), as.integer(ntri), 
-                  in.trio, auxmu3, Mu3, mu2, mu2up, tri.aux, 
+                mus2 <- .C("int2", dup, as.integer(ned), as.integer(ntri),
+                  in.trio, auxmu3, Mu3, mu2, mu2up, tri.aux,
                   aux1, ind.ed, num.rho2, mk0, at, PACKAGE = "alphashape3d")
                 mu2 <- mus2[[7]]
                 Mu2 <- mus2[[8]]
@@ -378,29 +378,29 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
                 storage.mode(mu1) <- "double"
                 mu1up <- numeric(nvt)
                 storage.mode(mu1up) <- "double"
-                mus1 <- .C("int1", dup1, as.integer(nvt), as.integer(ned), 
+                mus1 <- .C("int1", dup1, as.integer(nvt), as.integer(ned),
                   in.edo, auxmu2, Mu2, mu1, mu1up, PACKAGE = "alphashape3d")
                 mu1 <- mus1[[7]]
                 Mu1 <- mus1[[8]]
                 tc.def <- cbind(tc, rho4)
-                tri.def <- cbind(t1u, t2u, t3u, on.ch3, at3, 
+                tri.def <- cbind(t1u, t2u, t3u, on.ch3, at3,
                   rho3, mu3, Mu3)
-                ed.def <- cbind(e1u, e2u, on.ch2, at2, rho2, 
+                ed.def <- cbind(e1u, e2u, on.ch2, at2, rho2,
                   mu2, Mu2)
                 vt.def <- cbind(1:nvt, on.ch1, mu1, Mu1)
-                colnames(tc.def) <- c("v1", "v2", "v3", "v4", 
+                colnames(tc.def) <- c("v1", "v2", "v3", "v4",
                   "rhoT")
-                colnames(tri.def) <- c("tr1", "tr2", "tr3", "on.ch", 
+                colnames(tri.def) <- c("tr1", "tr2", "tr3", "on.ch",
                   "attached", "rhoT", "muT", "MuT")
-                colnames(ed.def) <- c("ed1", "ed2", "on.ch", 
+                colnames(ed.def) <- c("ed1", "ed2", "on.ch",
                   "attached", "rhoT", "muT", "MuT")
                 colnames(vt.def) <- c("v1", "on.ch", "muT", "MuT")
             }
             if (flag == 1) {
                 flag2 <- 1
-                warning("The general position assumption is not satisfied\nPerturbation of the data set was required", 
+                warning("The general position assumption is not satisfied\nPerturbation of the data set was required",
                   call. = FALSE, immediate. = TRUE)
-                x <- x + rnorm(length(x), sd = sd(as.numeric(x)) * 
+                x <- x + rnorm(length(x), sd = sd(as.numeric(x)) *
                   eps)
             }
         }
@@ -411,50 +411,50 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
             fclass <- numeric(length = length(tc.def[, "rhoT"]))
             fclass[alpha > tc.def[, "rhoT"]] <- 1
             tc.def <- cbind(tc.def, fclass)
-            colnames(tc.def)[length(colnames(tc.def))] <- paste("fc:", 
+            colnames(tc.def)[length(colnames(tc.def))] <- paste("fc:",
                 alpha, sep = "")
             fclass <- numeric(length = dim(tri.def)[1])
-            fclass[tri.def[, "on.ch"] == 0 & tri.def[, "attached"] == 
-                0 & alpha > tri.def[, "rhoT"] & alpha < tri.def[, 
+            fclass[tri.def[, "on.ch"] == 0 & tri.def[, "attached"] ==
+                0 & alpha > tri.def[, "rhoT"] & alpha < tri.def[,
                 "muT"]] <- 3
-            fclass[tri.def[, "on.ch"] == 0 & alpha > tri.def[, 
+            fclass[tri.def[, "on.ch"] == 0 & alpha > tri.def[,
                 "muT"] & alpha < tri.def[, "MuT"]] <- 2
-            fclass[tri.def[, "on.ch"] == 0 & alpha > tri.def[, 
+            fclass[tri.def[, "on.ch"] == 0 & alpha > tri.def[,
                 "MuT"]] <- 1
-            fclass[tri.def[, "on.ch"] == 1 & tri.def[, "attached"] == 
-                0 & alpha > tri.def[, "rhoT"] & alpha < tri.def[, 
+            fclass[tri.def[, "on.ch"] == 1 & tri.def[, "attached"] ==
+                0 & alpha > tri.def[, "rhoT"] & alpha < tri.def[,
                 "muT"]] <- 3
-            fclass[tri.def[, "on.ch"] == 1 & alpha > tri.def[, 
+            fclass[tri.def[, "on.ch"] == 1 & alpha > tri.def[,
                 "muT"]] <- 2
             tri.def <- cbind(tri.def, fclass)
-            colnames(tri.def)[length(colnames(tri.def))] <- paste("fc:", 
+            colnames(tri.def)[length(colnames(tri.def))] <- paste("fc:",
                 alpha, sep = "")
             fclass <- numeric(length = dim(ed.def)[1])
-            fclass[ed.def[, "on.ch"] == 0 & ed.def[, "attached"] == 
-                0 & alpha > ed.def[, "rhoT"] & alpha < ed.def[, 
+            fclass[ed.def[, "on.ch"] == 0 & ed.def[, "attached"] ==
+                0 & alpha > ed.def[, "rhoT"] & alpha < ed.def[,
                 "muT"]] <- 3
-            fclass[ed.def[, "on.ch"] == 0 & alpha > ed.def[, 
+            fclass[ed.def[, "on.ch"] == 0 & alpha > ed.def[,
                 "muT"] & alpha < ed.def[, "MuT"]] <- 2
-            fclass[ed.def[, "on.ch"] == 0 & alpha > ed.def[, 
+            fclass[ed.def[, "on.ch"] == 0 & alpha > ed.def[,
                 "MuT"]] <- 1
-            fclass[ed.def[, "on.ch"] == 1 & ed.def[, "attached"] == 
-                0 & alpha > ed.def[, "rhoT"] & alpha < ed.def[, 
+            fclass[ed.def[, "on.ch"] == 1 & ed.def[, "attached"] ==
+                0 & alpha > ed.def[, "rhoT"] & alpha < ed.def[,
                 "muT"]] <- 3
-            fclass[ed.def[, "on.ch"] == 1 & alpha > ed.def[, 
+            fclass[ed.def[, "on.ch"] == 1 & alpha > ed.def[,
                 "muT"]] <- 2
             ed.def <- cbind(ed.def, fclass)
-            colnames(ed.def)[length(colnames(ed.def))] <- paste("fc:", 
+            colnames(ed.def)[length(colnames(ed.def))] <- paste("fc:",
                 alpha, sep = "")
             fclass <- numeric(length = dim(vt.def)[1])
             fclass[alpha < vt.def[, "muT"]] <- 3
-            fclass[vt.def[, "on.ch"] == 0 & alpha > vt.def[, 
+            fclass[vt.def[, "on.ch"] == 0 & alpha > vt.def[,
                 "muT"] & alpha < vt.def[, "MuT"]] <- 2
-            fclass[vt.def[, "on.ch"] == 0 & alpha > vt.def[, 
+            fclass[vt.def[, "on.ch"] == 0 & alpha > vt.def[,
                 "MuT"]] <- 1
-            fclass[vt.def[, "on.ch"] == 1 & alpha > vt.def[, 
+            fclass[vt.def[, "on.ch"] == 1 & alpha > vt.def[,
                 "muT"]] <- 2
             vt.def <- cbind(vt.def, fclass)
-            colnames(vt.def)[length(colnames(vt.def))] <- paste("fc:", 
+            colnames(vt.def)[length(colnames(vt.def))] <- paste("fc:",
                 alpha, sep = "")
         }
     }
@@ -462,12 +462,12 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
         alphaux <- unique(c(alphaold, alphaux))
     }
     if (flag2 == 1) {
-        ashape3d.obj <- list(tetra = tc.def, triang = tri.def, 
-            edge = ed.def, vertex = vt.def, x = xorig, alpha = alphaux, 
+        ashape3d.obj <- list(tetra = tc.def, triang = tri.def,
+            edge = ed.def, vertex = vt.def, x = xorig, alpha = alphaux,
             xpert = x)
     }
     else {
-        ashape3d.obj <- list(tetra = tc.def, triang = tri.def, 
+        ashape3d.obj <- list(tetra = tc.def, triang = tri.def,
             edge = ed.def, vertex = vt.def, x = x, alpha = alphaux)
     }
     class(ashape3d.obj) <- "ashape3d"
