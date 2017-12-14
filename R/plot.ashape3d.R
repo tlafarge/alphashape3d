@@ -48,8 +48,8 @@
 #' # Plot the connected components of the alpha-shape for alpha=0.25
 #' plot(ashape3d.obj, byComponents = TRUE, indexAlpha = 2)
 #'
-#' @export plot.ashape3d
 #' @importFrom graphics plot
+#' @export
 plot.ashape3d <-
 function (x, clear = TRUE, col = c(2, 2, 2), byComponents = FALSE,
     indexAlpha = 1, transparency = 1, walpha = FALSE, triangles = TRUE,
