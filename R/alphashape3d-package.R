@@ -20,7 +20,7 @@
 #' @references Edelsbrunner, H., Mucke, E. P. (1994). Three-Dimensional Alpha
 #' Shapes. \emph{ACM Transactions on Graphics}, 13(1), pp.43-72.
 #' @keywords package
-#' @useDynLib alphashape3d
+#' @useDynLib alphashape3d, .registration = TRUE
 #' @import rgl
 #' @import geometry
 NULL
