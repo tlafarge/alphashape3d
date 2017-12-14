@@ -1,3 +1,54 @@
+#' Plot the \eqn{\alpha}-shape in 3D
+#' 
+#' This function plots the \eqn{\alpha}-shape in 3D using the package
+#' \code{\link{rgl}}.
+#' 
+#' The function \code{plot.ashape3d} opens a rgl device for each value of
+#' \eqn{\alpha} in \code{x$alpha[indexAlpha]}. Device information is displayed
+#' in the console.
+#' 
+#' If \code{indexAlpha="all"} or \code{indexAlpha="ALL"} then the function
+#' represents the \eqn{\alpha}-shape for all values of \eqn{\alpha} in
+#' \code{as3d$alpha}.
+#' 
+#' @param x An object of class \code{"ashape3d"} that represents the
+#' \eqn{\alpha}-shape of a given sample of points in the three-dimensional
+#' space, see \code{\link{ashape3d}}.
+#' @param clear Logical, specifying whether the current rgl device should be
+#' cleared.
+#' @param col A vector of length three specifying the colors of the triangles,
+#' edges and vertices composing the \eqn{\alpha}-shape, respectively.
+#' @param byComponents Logical, if TRUE the connected components of the
+#' \eqn{\alpha}-shape are represented in different colors, see
+#' \code{\link{components_ashape3d}}.
+#' @param indexAlpha A single value or vector with the indexes of
+#' \code{x$alpha} that should be used for the computation, see Details.
+#' @param transparency The coefficient of transparency, from 0 (transparent) to
+#' 1 (opaque), used to plot the \eqn{\alpha}-shape.
+#' @param walpha Logical, if TRUE the value of \eqn{\alpha} is displayed in the
+#' rgl device.
+#' @param triangles Logical, if TRUE triangles are plotted.
+#' @param edges Logical, if TRUE edges are plotted.
+#' @param vertices Logical, if TRUE vertices are plotted.
+#' @param \dots Material properties. See \code{\link{rgl.material}} for
+#' details.
+#' @seealso \code{\link{ashape3d}}, \code{\link{components_ashape3d}}
+#' @keywords package
+#' @examples
+#' 
+#' T1 <- rtorus(1000, 0.5, 2)
+#' T2 <- rtorus(1000, 0.5, 2, ct = c(2, 0, 0), rotx = pi/2)
+#' x <- rbind(T1, T2)
+#' alpha <- c(0.15, 0.25, 1)
+#' ashape3d.obj <- ashape3d(x, alpha = alpha)
+#' 
+#' # Plot the alpha-shape for all values of alpha
+#' plot(ashape3d.obj, indexAlpha = "all")
+#' 
+#' # Plot the connected components of the alpha-shape for alpha=0.25
+#' plot(ashape3d.obj, byComponents = TRUE, indexAlpha = 2)
+#' 
+#' @export plot.ashape3d
 plot.ashape3d <-
 function (x, clear = TRUE, col = c(2, 2, 2), byComponents = FALSE, 
     indexAlpha = 1, transparency = 1, walpha = FALSE, triangles = TRUE, 
