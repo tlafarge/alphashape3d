@@ -11,7 +11,7 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{bm}
-\usepackage{graphicx}               
+\usepackage{graphicx}
 \usepackage{pstricks,pst-plot}
 \usepackage{upgreek}
 
@@ -61,7 +61,7 @@ This work presents the implementation in \proglang{R}
   \pkg{alphashape3d} provides users with tools to facilitate the
   three--dimensional graphical visualization of the estimated
   set as well as the computation of important characteristics such as the connected components or the volume, among others.}
-  
+
 \Keywords{set estimation, 3D surface reconstruction, $\alpha$-convexity,  $\alpha$-shape, \proglang{R} software}
 \Plainkeywords{3D surface reconstruction, alpha--convexity,  alpha--shape, alpha--convex hull, R software} %% without formatting
 %% at least one keyword must be supplied
@@ -133,7 +133,7 @@ engineering, etc.
 Consequently, a rich branch of image analysis has been developing
 rapidly to deal with the reconstruction of 3D objects from point
 clouds, and to study geometrical attributes after discretization
-by sampling with point clouds. 
+by sampling with point clouds.
 
 Statistical morphometry seeks to characterize the variability of
 shape and size, which is essential in a wide range of disciplines
@@ -155,7 +155,7 @@ from probability distributions whose supports are those sets, and
 then to study the statistical properties of the corresponding
 estimators (asymptotic properties, types of convergence,
 convergence rates, etc.). \cite{cuevas09} surveys the most
-relevant theory on set estimation.  
+relevant theory on set estimation.
 
 There are different geometrical structures that can capture the
 shape of a set from a sample of points taken from it. The extent
@@ -168,7 +168,7 @@ convex hull of the sample is the natural estimator. See
 estimator. However, in many applications the sets or objects of
 interest are not strictly convex, but only approximately
 so. There is, therefore, a need to define relaxed convexity shape
-restrictions. 
+restrictions.
 
 The $\alpha$-convexity is one such restriction that mildly relaxes
 the assumption of convexity, and does so in a tunable manner
@@ -246,7 +246,7 @@ points in the three-dimensional Euclidean space. In Section
 and give the details about its implementation in
 \proglang{R}. Further
 computational details are given in Section
-\ref{sec:comp}. 
+\ref{sec:comp}.
 
 
 \section[The alpha-shape in 3D]{The $\bm{\alpha}$-shape in 3D}\label{sec:2}
@@ -269,7 +269,7 @@ where
 \begin{equation}\label{rconvhull}
   C_\alpha(A)=\bigcap_{\{\mathring{B}(x,\alpha):\
     \mathring{B}(x,\alpha)\cap
-    A=\emptyset\}}{\left(\mathring{B}(x,\alpha)\right)^c} 
+    A=\emptyset\}}{\left(\mathring{B}(x,\alpha)\right)^c}
 \end{equation}
 is called the $\alpha$-convex hull of $A$. In
 (\ref{rconvhull}), $\mathring{B}(x,\alpha)$ denotes the open ball
@@ -326,7 +326,7 @@ axis(1,cex.axis=2.7)
 axis(2,cex.axis=2.7)
 plot(ahull(x,alpha=alpha3),do.sha=TRUE,wpoints=TRUE,col=c(6,4,rep(1,3)),lwd=2,add=T)
 par(mfrow=c(1,1))
-@  
+@
 }
 \end{center}
 \caption{In pink, boundary of the $\alpha$-convex hulls of a uniform random sample of size $n=300$ on a ring in $\mathbb{R}^2$ for different values of $\alpha$. In blue, the corresponding
@@ -383,8 +383,8 @@ z1[i,]<-aux[,3]+z[i]
 x<-cbind(as.numeric(t(x1)),as.numeric(t(y1)),as.numeric(t(z1)))
 x<-rotate3d(x,pi/2.8,0.9,0.9,0.5)
 @
-\begin{figure}[!h] 
-\scalebox{0.4}{ 
+\begin{figure}[!h]
+\scalebox{0.4}{
 <<echo=FALSE, results=hide, grdevice=rgl.Sweave, fig=TRUE, width=4, height=4,units = "cm",resolution=100>>=
 bg3d("white")
 as<-ashape3d(x,alpha=0.03)
@@ -393,13 +393,13 @@ plot(as,col=c(4,4,4))
 <<echo=FALSE, results=hide, grdevice=rgl.Sweave, fig=TRUE, width=4, height=4,units = "cm",resolution=100>>=
 as<-ashape3d(x,alpha=0.35)
 bg3d("white")
-plot.ashape3d(as,col=c(4,4,4))
+plot(as,col=c(4,4,4))
 @
 <<echo=FALSE, results=hide, grdevice=rgl.Sweave, fig=TRUE, width=4, height=4,units = "cm",resolution=100>>=
 as<-ashape3d(x,alpha=0.5)
 bg3d("white")
-plot.ashape3d(as,col=c(4,4,4))
-@ 
+plot(as,col=c(4,4,4))
+@
 }
 \caption{From left to right, $\alpha$-shapes of a point cloud in $\mathbb{R}^3$ for increasing values of $\alpha$.}
 \label{fig:ahull3}
@@ -454,7 +454,7 @@ illustrated in Figure~\ref{fig:dual}.  In $\mathbb{R}^3$,
   triangular faces, edges and vertices, hence may more properly
   be called a ``tetrahedralization''.
 
-  
+
 An important feature in the Delaunay triangulation is that the
 circumsphere of each tetrahedron includes no other point sites
 (empty sphere property). The centers of these empty circumspheres
@@ -470,7 +470,7 @@ and their many applications in computational geometry. It is
 x1<-c(0.5915,0.6230,0.9689,0.8248,0.9392,0.8156,0.2050,0.9757,0.0957,0.4139)
 y1<-c(0.472,0.619,0.304,0.197,0.716,0.575,0.507,0.574,0.996,0.893)
 x<-cbind(x1,y1)
-@ 
+@
 
 \begin{figure}[!h]
 \centering
@@ -480,7 +480,7 @@ par(mfrow=c(1,1))
 print(plot(0,type="n",xlim=c(0,1),ylim=c(0,1),xlab="",ylab="",axes=F))
 print(plot(delvor(x),col=1:3,xlab="",ylab="",add=T))
 @
-<<echo=FALSE,results=hide>>= 
+<<echo=FALSE,results=hide>>=
 # Delaunay triangulation in R3 and circumsphere
 # This function is to choose a not too large circumsphere
 # We consider the circumspheres contained in [0,1]^3
@@ -530,16 +530,16 @@ inS<-rad<d1
 # cualSp1<-which(rad==max(rad[inS]))
 cualSp1<-which(rad==sort(rad[inS])[floor(length(rad[inS])/2)])
 sp1<-c(ctx[cualSp1],cty[cualSp1],ctz[cualSp1],rad[cualSp1])
-@ 
+@
 <<echo=FALSE, results=hide, grdevice=rgl.Sweave, fig=TRUE, width=4,height=4,resolution=100,units = "cm">>=
 rgl.viewpoint(60)
 rgl.light(120,60)
 rgl.bg(col="white")
-tetramesh(tc,x,alpha=0.1,color="red")  
+tetramesh(tc,x,alpha=0.1,color="red")
 tetramesh(matrix(tc[cualSp1,],nr=1,nc=4),x, alpha=1,color="red",add=TRUE,clear=FALSE)
 rgl.spheres(sp1[1],sp1[2],sp1[3],sp1[4],alpha=0.5,color="gray")
 points3d(x[,1],x[,2],x[,3],color=1)
-@  
+@
 }
 \caption{The left panel shows the Voronoi diagram of a set
     of point in $\mathbb{R}^2$: each point has an associated
@@ -575,42 +575,42 @@ the triangulation the indices of the sample points defining the
 tetrahedron.
 
 \subsection[The function ashape3d]{The function \code{ashape3d}}\label{sec:ashape}
-<<echo=FALSE, results=hide>>= 
+<<echo=FALSE, results=hide>>=
 n<- 4000
 r1<- 0.5
 r2<- 2
 alp1<- 0.3
 alp2<- 0.5
-@ 
+@
 Here we describe the function \code{ashape3d}, included in
   the library \pkg{alphashape3d}, that implements the algorithm
   to construct the three-dimensional $\alpha$-shape in
-  \proglang{R}. The function \code{ashape3d} computes the $\alpha$-shape of a given sample $\mathcal{X}_n$ in $\mathbb{R}^3$ for given values of $\alpha > 0$. As an example to illustrate the use of the function we consider a point cloud of size $n=\Sexpr{n}$ within two linked tori, see Figure~\ref{fig:ahull4}.  
-  
+  \proglang{R}. The function \code{ashape3d} computes the $\alpha$-shape of a given sample $\mathcal{X}_n$ in $\mathbb{R}^3$ for given values of $\alpha > 0$. As an example to illustrate the use of the function we consider a point cloud of size $n=\Sexpr{n}$ within two linked tori, see Figure~\ref{fig:ahull4}.
+
 <<echo=false, results=hide>>=
 n <- 4000
 T1 <- rtorus(n/2, 0.5, 2)
 T2 <- rtorus(n/2, 0.5, 2, ct = c(2, 0, 0), rotx = pi/3)
 x <- rbind(T1, T2)
 points3d(x, col = 4)
-@  
+@
  \begin{figure} [!h]
-\begin{center} 
+\begin{center}
 \scalebox{0.5}{
 <<echo=FALSE, results=hide, grdevice=rgl.Sweave, fig=TRUE, width=4, height=4,units = "cm",resolution=100>>=
 rgl.viewpoint(20)
 rgl.light(120,60)
 bg3d("white")
 rgl.points(x, col = 4)
-@ 
+@
 }
 
 \vspace{-1.5cm}
-\end{center} 
+\end{center}
 \caption{Point cloud of size $n=\Sexpr{n}$ within two linked tori.}
 \label{fig:ahull4}
-\end{figure} 
-  
+\end{figure}
+
   Using function \code{rtorus}, we
   generated a uniform random sample of size $2000$ in each of two
   tori with minor radius $r=0.5$ and major radius $R=2$. The
@@ -634,7 +634,7 @@ points3d(x, col = 4)
 @
 <<echo=FALSE, results=hide>>=
 rgl.close()
-@ 
+@
 
 We compute the $\alpha$-shape for $\alpha=\Sexpr{alp1}$ and $\alpha=\Sexpr{alp2}$.
 
@@ -646,7 +646,7 @@ names(alphashape3d)
 
 The output of the function is an object of class 'ashape3d'.  The components \code{x} and \code{alpha} store the input information.  For each simplex (tetrahedron, triangle, edge or vertex) in the three-dimensional Delaunay triangulation there is a single interval so that the simplex is a face of the $\alpha$-shape if and only if $\alpha$ is contained in this interval. Moreover, see Table I in \cite{Edels94}\footnote{The  end-points of these sub-intervals, $\rho_T$, $\underline{\mu}_T$ and
   $\overline{\mu}_T$ defined in \cite{Edels94}, are stored in columns \code{rhoT}, \code{muT} and \code{MuT}, respectively}, each interval can be broken into three parts that classify a simplex as an interior, regular or singular simplex of the $\alpha$-complex. As defined in \cite{Edels94}, a simplex in the $\alpha$-complex is interior if it does not belong to the boundary of the $\alpha$-shape.
-  A simplex in the $\alpha$-complex is regular if it is part of the boundary of the $\alpha$-shape and bounds some higher-dimensional simplex in the $\alpha$-complex. A simplex in the $\alpha$-complex is singular if it is part of the boundary of the $\alpha$-shape but does not bounds any higher-dimensional simplex in the $\alpha$-complex. This classification allows us to identify the simplices that define the boundary of the $\alpha$-shape. 
+  A simplex in the $\alpha$-complex is regular if it is part of the boundary of the $\alpha$-shape and bounds some higher-dimensional simplex in the $\alpha$-complex. A simplex in the $\alpha$-complex is singular if it is part of the boundary of the $\alpha$-shape but does not bounds any higher-dimensional simplex in the $\alpha$-complex. This classification allows us to identify the simplices that define the boundary of the $\alpha$-shape.
 
 Throughout this paper, numerical results are listed as
 \proglang{R} would produce them by default, irrespective of
@@ -665,12 +665,12 @@ For each tetrahedron of the 3D Delaunay triangulation, the matrix \code{tetra} s
 head(alphashape3d$triang)
 @
 
-For each triangle of the 3D Delaunay triangulation, the matrix \code{triang} stores the indices of the sample points defining the triangle (columns 1 to 3), a value (1 or 0) indicating whether the triangle is on the convex hull (column 4), a value (1 or 0) indicating whether the triangle is attached or unattached\footnote{See nomenclature of \cite{Edels94}} (column 5), values \code{rhoT}, \code{muT} and \code{MuT} that define the intervals for which the triangle belongs to the $\alpha$-complex (columns 6 to 8) and for each $\alpha$ a value (0, 1, 2 or 3) indicating, respectively, that the triangle is not in the $\alpha$-shape or it is interior, regular or singular (columns 9 to last). 
+For each triangle of the 3D Delaunay triangulation, the matrix \code{triang} stores the indices of the sample points defining the triangle (columns 1 to 3), a value (1 or 0) indicating whether the triangle is on the convex hull (column 4), a value (1 or 0) indicating whether the triangle is attached or unattached\footnote{See nomenclature of \cite{Edels94}} (column 5), values \code{rhoT}, \code{muT} and \code{MuT} that define the intervals for which the triangle belongs to the $\alpha$-complex (columns 6 to 8) and for each $\alpha$ a value (0, 1, 2 or 3) indicating, respectively, that the triangle is not in the $\alpha$-shape or it is interior, regular or singular (columns 9 to last).
 
 <<echo=true>>=
 head(alphashape3d$edge)
 @
-	
+
 
 For each edge of the 3D Delaunay triangulation, the matrix \code{edge} stores the indices of the sample points defining the edge (columns 1 and 2), a value (1 or 0) indicating whether the edge is on the convex hull (column 3), a value (1 or 0) indicating whether the edge is attached or unattached (column 4), values \code{rhoT}, \code{muT} and \code{MuT} that define the intervals for which the edge belongs to the $\alpha$-complex (columns 5 to 7) and for each $\alpha$ a value (0, 1, 2 or 3) indicating, respectively, that the edge is not in the $\alpha$-shape or it is interior, regular or singular (columns 8 to last).
 
@@ -683,13 +683,13 @@ For each sample point, the matrix vertex stores the index of the point (column 1
 
 
 
- 
+
 \subsection[Graphical representation of the alpha--shape in 3D]{Graphical representation of the $\bm{\alpha}$--shape in 3D}\label{sec:graph}
 
 Graphical visualization is an essential part of data analysis and statistical modelling. The function \code{plot.ashape3d} (S3 method for class
-'ashape3d') performs 3D visualization of the $\alpha$-shape. 
+'ashape3d') performs 3D visualization of the $\alpha$-shape.
 
-<<echo=true, results=hide>>= 
+<<echo=true, results=hide>>=
 rgl.viewpoint(20)
 rgl.light(120, 60)
 bg3d("white")
@@ -697,15 +697,15 @@ plot(alphashape3d, col = c(4, 4, 4), indexAlpha = "all")
 @
 <<echo=false, results=hide>>=
 rgl.close()
-@ 
+@
 
 
 The input must be an object of class 'ashape3d'. The argument \code{col} is a vector of colour numbers for the triangles, edges and vertices composing the $\alpha$-shape (the default colour is red). The argument \code{indexAlpha} can be a single value or a vector specifying the indexes of \code{alphashape3d$alpha} to be used for representing the $\alpha$-shape. If \code{indexAlpha="all"} or \code{indexAlpha="ALL"} then the function opens a new rgl device for each value of $\alpha$ in \code{alphashape3d$alpha}.  Other arguments are available. The argument \code{transparency} controls the transparency properties of the  $\alpha$-shape. Its value ranges from zero (transparent) to one (opaque). The scene and appearance of shapes, backgrounds and bounding box objects can be controlled by functions and parameters in package \pkg{rgl}, see \cite{rgl}. The package
 \pkg{rgl} adds three-dimensional, real-time visualization
-functionality to the \proglang{R} programming environment. Figure~\ref{fig:ahull4b} shows snapshots of the above call to \code{plot.ashape3d}. 
+functionality to the \proglang{R} programming environment. Figure~\ref{fig:ahull4b} shows snapshots of the above call to \code{plot.ashape3d}.
 
-\begin{figure}[!h] 
-\begin{center} 
+\begin{figure}[!h]
+\begin{center}
 \scalebox{0.5}{
 
 
@@ -713,19 +713,19 @@ functionality to the \proglang{R} programming environment. Figure~\ref{fig:ahull
 rgl.viewpoint(20)
 rgl.light(120,60)
 bg3d("white")
-plot.ashape3d(alphashape3d,indexAlpha=1, col = rep(4,3))
+plot(alphashape3d,indexAlpha=1, col = rep(4,3))
 @
 
 <<echo=FALSE, results=hide, grdevice=rgl.Sweave, fig=TRUE, width=4, height=4,units = "cm",resolution=100>>=
 rgl.viewpoint(20)
 rgl.light(120,60)
 bg3d("white")
-plot.ashape3d(alphashape3d,indexAlpha=2, col = rep(4,3))
-@ 
+plot(alphashape3d,indexAlpha=2, col = rep(4,3))
+@
 }
 
 \vspace{-1.5cm}
-\end{center} 
+\end{center}
 \caption{Snapshots from \code{plot.ashape3d} representing the $\alpha$-shape of the point cloud for $\alpha=\Sexpr{alp1}$ (middle) and $\alpha=\Sexpr{alp2}$ (right).}
 \label{fig:ahull4b}
 \end{figure}
@@ -764,14 +764,14 @@ For the example whose results are depicted in
 
 <<echo=TRUE, results=hide>>=
 comp <- components_ashape3d(alphashape3d, indexAlpha = "all")
-@ 
- 
-If  \code{indexAlpha} is a single value then the function returns a vector \code{v} of length equal to the sample size. For each sample point \code{i}, \code{v[i]} represents the label of the connected component to which the point belongs (for isolated points, \code{v[i]=-1}). Otherwise, \code{components_ashape3d} returns a list of vectors describing the connected components of the $\alpha$-shape for each selected value of $\alpha$. 
+@
+
+If  \code{indexAlpha} is a single value then the function returns a vector \code{v} of length equal to the sample size. For each sample point \code{i}, \code{v[i]} represents the label of the connected component to which the point belongs (for isolated points, \code{v[i]=-1}). Otherwise, \code{components_ashape3d} returns a list of vectors describing the connected components of the $\alpha$-shape for each selected value of $\alpha$.
 
 <<echo=TRUE>>=
 table(comp[[1]])
 table(comp[[2]])
-@ 
+@
 
 This shows that the $\alpha$-shape for $\alpha=0.3$ has two
   connected components with $2000$ sample points each, and that
@@ -783,31 +783,31 @@ rgl.viewpoint(20)
 rgl.light(120, 60)
 bg3d("white")
 plot(alphashape3d, byComponents = TRUE, indexAlpha = "all")
-@ 
+@
 <<echo=false, results=hide>>=
 rgl.close()
-@ 
+@
 
 
-\begin{figure} 
-\begin{center} 
+\begin{figure}
+\begin{center}
 \scalebox{0.5}{
 <<echo=FALSE, results=hide, grdevice=rgl.Sweave, fig=TRUE, width=4, height=4,units = "cm",resolution=100>>=
 rgl.viewpoint(20)
 rgl.light(120,60)
 bg3d("white")
 plot(alphashape3d, byComponents = TRUE, indexAlpha = 1)
-@ 
+@
 <<echo=FALSE, results=hide, grdevice=rgl.Sweave, fig=TRUE, width=4, height=4,units = "cm",resolution=100>>=
 rgl.viewpoint(20)
 rgl.light(120,60)
 bg3d("white")
 plot(alphashape3d, byComponents = TRUE, indexAlpha = 2)
-@ 
+@
 }
 
 \vspace{-1cm}
-\end{center} 
+\end{center}
 \caption{Connected components of the $\alpha$-shape of the point cloud for $\alpha=\Sexpr{alp1}$ (left) and $\alpha=\Sexpr{alp2}$ (right).}
 \label{fig:comp}
 \end{figure}
@@ -818,16 +818,16 @@ Here we describe other functions in the library \pkg{alphashape3d} that compute 
 
 <<echo=TRUE>>=
 volume_ashape3d(alphashape3d, indexAlpha = 1)
-@ 
+@
 <<echo=FALSE, results=hide>>=
 volt<-volume_ashape3d(alphashape3d, indexAlpha = 1)
-@ 
+@
 
 We can also compute the volume of each connected component of the $\alpha$-shape separately, by setting the argument \code{byComponents = TRUE}.
 
 <<echo=TRUE>>=
 volume_ashape3d(alphashape3d, indexAlpha = 1, byComponents = TRUE)
-@ 
+@
 
 These add up to $\Sexpr{round(volt,4)}$, which is the total volume of the
   $\alpha$-shape in Figure~\ref{fig:comp} (left).
@@ -839,7 +839,7 @@ the $\alpha$-shapes computed above.
 
 <<echo=TRUE>>=
 inashape3d(alphashape3d, indexAlpha = "all", c(-2.5, 2.5, 0))
-@ 
+@
 
 The following code produces Figure~\ref{fig:in1}. We have considered a sequence of points in the line $y=-x$ ($z=0$). After using the function \code{inashape3d} we represent in red the points that do not belong to the $\alpha$-shape and in green the points that belong to the $\alpha$-shape for $\alpha=\Sexpr{alp1}$.
 
@@ -853,10 +853,10 @@ bg3d("white")
 plot(alphashape3d, col = c(4, 4, 4), indexAlpha = 1, transparency = 0.2)
 colours <- ifelse(in3d, "green", "red")
 rgl.points(points, col = colours)
-@ 
+@
 
-\begin{figure}[!h] 
-\begin{center} 
+\begin{figure}[!h]
+\begin{center}
 \scalebox{0.5}{
 %<<echo=FALSE, results=hide, grdevice=rgl.Sweave, fig=TRUE, %width=4, height=4,units = "cm",resolution=100, outputtype=pdf, %pdf=TRUE>>=
 %rgl.viewpoint(20)
@@ -874,7 +874,7 @@ rgl.points(points, col = colours)
 }
 
 \vspace{-1cm}
-\end{center} 
+\end{center}
 \caption{In blue, $\alpha$-shape of the input point cloud for $\alpha=\Sexpr{alp1}$. In red, points in the line $y=-x$ ($z=0$) that do not belong to the $\alpha$-shape. In green, points in the line $y=-x$ ($z=0$) that belong to the $\alpha$-shape.}
 \label{fig:in1}
 \end{figure}
@@ -896,7 +896,7 @@ nomenclature of \cite{Edels94}, a triangle is regular if it
   which is considerably faster than testing whether $p$ belongs
   to any of the tetrahedra that form the $\alpha$-shape.
 
-\ 
+\
 
 Finally, the function \code{surfaceNormals} calculates the normal vectors to the triangles in the boundary of the $\alpha$-shape. For the considered example, we compute the normal vectors  for the $\alpha$-shape with  $\alpha=\Sexpr{alp1}$.
 
@@ -905,8 +905,8 @@ normv <- surfaceNormals(alphashape3d, indexAlpha = 1)
 class(normv)
 names(normv)
 head(normv$normals)
-head(normv$centers) 
-@ 
+head(normv$centers)
+@
 
 The function returns an object of class 'normals'.  The component \code{normals} is a three-column matrix with the euclidean coordinates of the normal vectors (the norm of each vector is equal to the area of its associated triangle). The component \code{centers} is a three-column matrix with the euclidean coordinates of the centers of the triangles that form the boundary of the $\alpha$-shape. The normal vectors can be represented by setting the argument \code{display = TRUE} in the function \code{surfaceNormals}.
 
@@ -930,13 +930,13 @@ offFilename <- "alphashape3d.off"
 write("OFF", file = offFilename, append = FALSE, sep = " ")
 aux <- alphashape3d$triang
 tr <- aux[aux[, 9] == 2 | aux[, 9]==3, c("tr1", "tr2", "tr3")]
-write(c(dim(alphashape3d$x)[1], dim(tr)[1], 0), file = offFilename, 
+write(c(dim(alphashape3d$x)[1], dim(tr)[1], 0), file = offFilename,
 append = TRUE, sep = " ")
-write(t(alphashape3d$x), file = offFilename, ncolumns = 3, 
+write(t(alphashape3d$x), file = offFilename, ncolumns = 3,
 append = TRUE, sep = " ")
-write(t(cbind(rep(3, dim(tr)[1]), tr - 1)), 
+write(t(cbind(rep(3, dim(tr)[1]), tr - 1)),
 file = offFilename, ncolumns = 4, append = TRUE, sep = " ")
-@ 
+@
 
 
 
@@ -945,7 +945,7 @@ file = offFilename, ncolumns = 4, append = TRUE, sep = " ")
 
 \textit{Software}
 
-The \pkg{alphashape3d} package is available from the Comprehensive \proglang{R} Archive Network at the url \url{http://CRAN.R-project.org/package=alphashape3d}. This document was generated with version 1.1 of the package.
+The \pkg{alphashape3d} package is available from the Comprehensive \proglang{R} Archive Network at the url \url{https://CRAN.R-project.org/package=alphashape3d}. This document was generated with version 1.1 of the package.
 
 
 

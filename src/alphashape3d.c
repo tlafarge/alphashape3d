@@ -8,7 +8,7 @@
 
 /*     C FUNCTIONS IN PACKAGE alphashape3d  */
 /*     Thomas Lafarge <thowas.lafarge@gmail.com> */
-/*     Beatriz Pateiro-L�pez <beatriz.pateiro@usc.es> */
+/*     Beatriz Pateiro-Lopez <beatriz.pateiro@usc.es> */
 /* ========================================================== */
 
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
