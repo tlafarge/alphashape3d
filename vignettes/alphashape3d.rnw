@@ -1,5 +1,6 @@
+%\VignetteEngine{knitr::knitr} 
 %\VignetteIndexEntry{R Implementation of a Polyhedral Approximation to a 3D Set of Points Using the alpha-shape}
-%\VignetteDepends{geometry, rgl}
+%\VignetteDepends{geometry, rgl, alphahull}
 %\VignetteKeywords{package}
 %\VignettePackage{alphashape3d}
 
