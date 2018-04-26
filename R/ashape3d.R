@@ -128,7 +128,7 @@ function (x, alpha, pert = FALSE, eps = 1e-09)
             flag <- 0
             n <- dim(x)[1]
             x4 <- x[, 1]^2 + x[, 2]^2 + x[, 3]^2
-            tc <- matrix(delaunayn(x), ncol = 4)
+            tc <- matrix(suppressMessages(delaunayn(x,options = "QJ")), ncol = 4)
             ntc <- dim(tc)[1]
             ORDM <- matrix(as.integer(0), ntc, 4)
             storage.mode(tc) <- "integer"
